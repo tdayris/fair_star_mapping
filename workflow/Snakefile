@@ -1,0 +1,25 @@
+include: "rules/common.smk"
+
+if config.get("load_fair_genome_indexer", True):
+
+    include: "rules/fair_genome_indexer_pipeline.smk"
+
+include: "rules/fair_bowtie2_mapping.smk"
+
+
+
+rule fair_star_mapping_target:
+    input:
+        unpack(get_fair_star_mapping_target),
+    output:
+        touch("tmp/targets/fair_star_mapping_target.flag"),
+    localrule: True
+    threads: 1
+    resources:
+        mem_mb=128,
+        runtime=2,
+        tmpdir="tmp",
+    log:
+        "logs/fair_star_mapping_target.log",
+    benchmark:
+        "benchmark/fair_star_mapping_target.tsv"

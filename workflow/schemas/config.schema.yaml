@@ -1,0 +1,46 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+description: snakemake configuration file
+
+type: object
+
+
+genomes:
+  type: string
+  description: Path to the CSV file defining genome properties
+
+
+load_fair_genome_indexer:
+  type: boolean
+  description: Load (or not) the fair_genome_indexer pipeline
+
+
+samples:
+  type: string
+  description: Path to the CSV file defining samples and their corresponding fastq paths
+
+params:
+  type: object
+  star:
+    type: object
+    description: Optional parameters for star
+    index:
+      type: string
+      description: Optional parameters for star-index
+    star:
+      type: string
+      description: Optional parameters for star-align
+
+
+  sambamba:
+    type: object
+    description: Optional parameters for sambamba
+    view:
+      type: string
+      description: Optional parameters for sambamba view filters
+    markdup:
+      type: string
+      description: Optional parameters for sambamba markdup
+
+required:
+  - samples
