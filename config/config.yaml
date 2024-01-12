@@ -1,25 +1,38 @@
 samples: config/samples.csv
 
-# # Optional parameters
-# params:
-#   star:
-#     # Optional parameters for star index
-#     index: ""
-#     # Optional parameters for star align
-#     align: ""
-#   sambamba:
-#     # Optional parameters for sambamba view
-#     view: "--format 'bam' --filter 'mapping_quality >= 30 and not (unmapped or mate_is_unmapped)' "
-#     # Optional parameters for sambamba markdup
-#     markdup: "--remove-duplicates --overflow-list-size=500000"
-#   picard:
-#     # Mapping QC optional parameters
-#     metrics: ""
+# Optional parameters
+params:
+  star:
+    # Optional parameters for star index
+    index: ""
+    # Optional parameters for star align
+    align: ""
+  sambamba:
+    # Optional parameters for sambamba view
+    view: "--format 'bam' --filter 'mapping_quality >= 30 and not (unmapped or mate_is_unmapped)' "
+    # Optional parameters for sambamba markdup
+    markdup: "--remove-duplicates --overflow-list-size=500000"
+  picard:
+    # Mapping QC optional parameters
+    metrics: ""
+  # Optional parameters for FastQC
+  fastqc: ""
+  # Optional parameters for MultiQC
+  multiqc: --module sambamba --module picard --module samtools --module star --module fastp --module fastqc --zip-data-dir --verbose --no-megaqc-upload --no-ansi --force
+  # Optional parameters for Fastp
+  fastp:
+    # Optional adapters for fastp
+    adapters: ""
+    # Optional command line arguments for Fastp
+    extra: ""
 
-# Optional path to a `genome.csv` file
-# genomes: genome.csv
+Optional path to a `genome.csv` file
+genomes: genome.csv
 
 # Internal use only, not described in documentation.
 # deactivate import of fair_genome_indexer pipeline.
 # Requires the file `genome.csv` to be filled.
 # load_fair_genome_indexer: true
+# deactivate import of fair_bowtie2_mapping pipeline.
+# This is used for QC and compression, mapping is done by STAR in any case.
+# load_fair_bowtie2_mapping: true
