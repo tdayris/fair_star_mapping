@@ -20,7 +20,7 @@ rule star_index:
     log:
         "logs/star_index/{species}.{build}.{release}.{datatype}.log",
     wrapper:
-        "v3.3.3/bio/star/index"
+        "v3.3.6/bio/star/index"
 
 
 rule star_align:
@@ -44,4 +44,4 @@ rule star_align:
     params:
         extra=config.get("params", {}).get("star", {}).get("align", ""),
     wrapper:
-        "v3.3.3/bio/star/align"
+        "v3.3.6/bio/star/align"

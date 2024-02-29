@@ -1,13 +1,8 @@
 module fair_bowtie2_mapping:
     snakefile:
-        github("tdayris/fair_bowtie2_mapping", path="workflow/Snakefile", tag="2.2.7")
+        github("tdayris/fair_bowtie2_mapping", path="workflow/Snakefile", tag="3.1.0")
     config:
-        {
-            "samples": config.get("samples", "config/samples.csv"),
-            "params": config.get("params", {}),
-            "load_fair_genome_indexer": False,
-            "genomes": config.get("genomes", "genomes.csv"),
-        }
+        config
 
 
 use rule sambamba_sort from fair_bowtie2_mapping as fair_bowtie2_mapping_sambamba_sort with:
