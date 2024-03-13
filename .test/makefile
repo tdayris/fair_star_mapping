@@ -8,11 +8,9 @@ MAKEFLAGS += --no-builtin-rules
 
 # List of snakefiles to lint
 snakefiles := \
-	"../workflow/rules/bowtie2_sambamba_meta.smk" \
-	"../workflow/rules/fastp.smk" \
-	"../workflow/rules/picard_metrics.smk" \
-	"../workflow/rules/samtools_stats.smk" \
+	"../workflow/rules/fair_bowtie2_mapping_pipeline.smk" \
 	"../workflow/rules/fair_genome_indexer_pipeline.smk" \
+	"../workflow/rules/star.smk" \
 	"../workflow/rules/common.smk" \
 	"../workflow/Snakefile"
 
@@ -39,7 +37,7 @@ pipeline.txt: format.txt linter.txt
 	snakemake -s ../workflow/Snakefile \
 		--cores 2 \
 		--software-deployment-method conda \
-		--workflow-profile ../profiles 2>&1 | tee pipeline.txt
+		2>&1 | tee pipeline.txt
 
 
 format.txt:
@@ -66,4 +64,5 @@ clean:
 		   report.txt \
 		   pipeline.txt \
 		   genomes.csv \
-		   dag.png
+		   dag.png \
+		   black.txt

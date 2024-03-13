@@ -62,9 +62,6 @@ else:
 
 snakemake.utils.validate(genomes, "../schemas/genomes.schema.yaml")
 
-snakemake_wrappers_version: str = "v3.0.0"
-
-
 report: "../report/workflows.rst"
 
 
@@ -124,7 +121,34 @@ def get_sample_information(
     return defaultdict(lambda: None)
 
 
-def get_multiqc_report_input(
+def get_star_align_input(
+    wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples
+) -> dict[str, str | list[str]]:
+    """
+    Return expected input files for STAR mapping, according to user-input,
+    and snakemake-wrapper requirements
+
+    Parameters:
+    wildcards (snakemake.io.Wildcards): Required for snakemake unpacking function
+    samples   (pandas.DataFrame)      : Describe sample names and related paths/genome
+
+    Return (dict[str, str | list[str]]):
+    Dictionnary of all input files as required by STAR's snakemake-wrapper
+    """
+    results: dict[str, str | list[str]] = {
+        "index": "reference/star_index/{species}.{build}.{release}.{datatype}",
+    }
+    sample_data: dict[str] | None = get_sample_information(wildcards, samples)
+    if sample_data.get("downstream_file"):
+        results["fq2"] = f"tmp/fastp/trimmed/{wildcards.sample}.2.fastq"
+        results["fq1"] = f"tmp/fastp/trimmed/{wildcards.sample}.1.fastq"
+    else:
+        results["fq1"] = f"tmp/fastp/trimmed/{wildcards.sample}.fastq"
+
+    return results
+
+
+def get_fair_star_mapping_multiqc_input(
     wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples
 ) -> dict[str, list[str]]:
     """
@@ -179,7 +203,7 @@ def get_multiqc_report_input(
             f"tmp/samtools/{species}.{build}.{release}.{datatype}/{sample}.txt"
         )
 
-        #TODO: add star output
+        # TODO: add star output
 
     return results
 
