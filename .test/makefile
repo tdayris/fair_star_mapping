@@ -8,12 +8,26 @@ MAKEFLAGS += --no-builtin-rules
 
 # List of snakefiles to lint
 snakefiles := \
-	"../workflow/rules/fair_bowtie2_mapping_pipeline.smk" \
-	"../workflow/rules/fair_genome_indexer_pipeline.smk" \
-	"../workflow/rules/star.smk" \
 	"../workflow/rules/common.smk" \
+	"../workflow/rules/fair_bowtie2_mapping.smk" \
+	"../workflow/rules/fair_fastqc_multiqc.smk" \
+	"../workflow/rules/fair_genome_indexer.smk" \
+	"../workflow/rules/fastp.smk" \
+	"../workflow/rules/goleft.smk" \
+	"../workflow/rules/multiqc.smk" \
+	"../workflow/rules/ngsderive.smk" \
+	"../workflow/rules/picard_metrics.smk" \
+	"../workflow/rules/rnaseqc.smk" \
+	"../workflow/rules/rseqc.smk" \
+	"../workflow/rules/sambamba.smk" \
+	"../workflow/rules/samtools_stats.smk" \
+	"../workflow/rules/star.smk" \
+	"../workflow/rules/ucsc.smk" \
 	"../workflow/Snakefile"
 
+pythonfiles := \
+	"../workflow/scripts/rseqc_tin.py" \
+	"../workflow/scripts/rnaseqc.py"
 
 .PHONY: all
 all: report.txt
@@ -28,15 +42,15 @@ dag.png:
 
 report.txt: pipeline.txt
 	mamba activate test-snakemake-wrappers && \
-	snakemake -s ../workflow/Snakefile \
+	snakemake -s ../workflow/Snakefile --profile local \
 		--report report.html 2>&1 | tee report.txt
 
 
-pipeline.txt: format.txt linter.txt
+pipeline.txt: linter.txt
 	mamba activate test-snakemake-wrappers && \
-	snakemake -s ../workflow/Snakefile \
+	snakemake -s ../workflow/Snakefile --profile local  \
 		--cores 2 \
-		--software-deployment-method conda \
+		--software-deployment-method apptainer conda \
 		2>&1 | tee pipeline.txt
 
 
@@ -45,11 +59,15 @@ format.txt:
 	snakefmt $(snakefiles) 2>&1 | tee format.txt
 
 
-linter.txt:
+linter.txt: format.txt black.txt
 	mamba activate test-snakemake-wrappers && \
-	snakemake -s ../workflow/Snakefile \
+	snakemake -s ../workflow/Snakefile  --profile local \
 		--lint 2>&1 | tee linter.txt
 
+
+black.txt:
+	mamba activate test-snakemake-wrappers && \
+	black $(pythonfiles) 2>&1 | tee black.txt
 
 .PHONY: clean
 clean:
@@ -63,6 +81,8 @@ clean:
 		   report.html \
 		   report.txt \
 		   pipeline.txt \
-		   genomes.csv \
 		   dag.png \
-		   black.txt
+		   black.txt \
+		   .java \
+		   .wget-hsts \
+		   .conda
