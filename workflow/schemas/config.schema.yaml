@@ -42,5 +42,3 @@ params:
       type: string
       description: Optional parameters for sambamba markdup
 
-required:
-  - samples
