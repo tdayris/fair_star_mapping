@@ -10,3 +10,5 @@ dependencies:
   - pandas
   - mamba
   - pytest
+  - squashfuse
+  - apptainer

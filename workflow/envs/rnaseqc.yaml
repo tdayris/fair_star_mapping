@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+  - dnachun
+  - nodefaults
+dependencies:
+  - rnaseqc=2.4.2
