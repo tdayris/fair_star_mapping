@@ -1,8 +1,8 @@
 module fair_genome_indexer:
     snakefile:
-        github("tdayris/fair_genome_indexer", path="workflow/Snakefile", tag="3.1.4")
+        github("tdayris/fair_genome_indexer", path="workflow/Snakefile", tag="3.3.0")
     config:
         config
 
 
-use rule * from fair_genome_indexer as fair_genome_indexer_*
+use rule * from fair_genome_indexer

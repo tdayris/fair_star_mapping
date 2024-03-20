@@ -3,15 +3,25 @@ include: "rules/common.smk"
 
 if config.get("load_fair_genome_indexer", True):
 
-    include: "rules/fair_genome_indexer_pipeline.smk"
+    include: "rules/fair_genome_indexer.smk"
 
 
-if config.get("load_fair_bowtie2_mapping", True):
+if config.get("load_fair_fastqc_multiqc", True):
 
-    include: "rules/fair_bowtie2_mapping_pipeline.smk"
+    include: "rules/fair_fastqc_multiqc.smk"
 
 
+include: "rules/fastp.smk"
+include: "rules/goleft.smk"
+include: "rules/multiqc.smk"
+include: "rules/ngsderive.smk"
+include: "rules/picard_metrics.smk"
+include: "rules/rnaseqc.smk"
+include: "rules/rseqc.smk"
+include: "rules/sambamba.smk"
+include: "rules/samtools_stats.smk"
 include: "rules/star.smk"
+include: "rules/ucsc.smk"
 
 
 rule fair_star_mapping_target:

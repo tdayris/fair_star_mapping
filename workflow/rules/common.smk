@@ -1,4 +1,5 @@
 import csv
+import os
 import pandas
 import snakemake
 import snakemake.utils
@@ -9,9 +10,8 @@ from typing import Any
 
 snakemake.utils.min_version("7.29.0")
 
-# containerized: "docker://snakemake/snakemake:v7.32.4"
-# containerized: "docker://mambaorg/micromamba:git-8440cec-jammy-cuda-12.2.0"
-# containerized: "docker://condaforge/mambaforge:23.3.1-1"
+
+container: "docker://snakemake/snakemake:v8.5.3"
 
 
 # Load and check configuration file
@@ -62,6 +62,7 @@ else:
 
 snakemake.utils.validate(genomes, "../schemas/genomes.schema.yaml")
 
+
 report: "../report/workflows.rst"
 
 
@@ -69,6 +70,8 @@ release_list: list[str] = list(set(genomes.release.tolist()))
 build_list: list[str] = list(set(genomes.build.tolist()))
 species_list: list[str] = list(set(genomes.species.tolist()))
 stream_list: list[str] = ["1", "2"]
+snakemake_wrappers_prefix: str = "v3.5.2"
+tmp: str = f"{os.getcwd()}/tmp"
 
 
 wildcard_constraints:
@@ -79,133 +82,52 @@ wildcard_constraints:
     stream=r"|".join(stream_list),
 
 
-def get_reference_genome_data(
-    wildcards: snakemake.io.Wildcards, genomes: pandas.DataFrame
-) -> dict[str, str | None]:
+def dlookup(
+    dpath: str | None = None,
+    query: str | None = None,
+    cols: list[str] | None = None,
+    within=None,
+    default: str | dict[str, Any] | None = None,
+) -> str:
     """
-    Return genome information for a given set of {species, build, release} wildcards
+    Return lookup() results or defaults
 
-    Parameters:
-    wildcards (snakemake.io.Wildcards): Required for snakemake unpacking function
-    genomes   (pandas.DataFrame)      : Describe genomes and reference file(s)
-
-    Return (dict[str, str | None]):
-    Genome information
+    dpath   (str | Callable | None): Passed to dpath library
+    query   (str | Callable | None): Passed to DataFrame.query()
+    cols    (list[str] | None):      The columns to operate on
+    within  (object):                The dataframe or mappable object
+    default (str):                   The default value to return
     """
-    result: str | None = genomes.loc[
-        (genomes["species"] == str(wildcards.species))
-        & (genomes["build"] == str(wildcards.build))
-        & (genomes["release"] == str(wildcards.release))
-    ]
-    if len(result) > 0:
-        return next(iter(result.to_dict(orient="index").values()))
-    return defaultdict(lambda: None)
+    value = None
+    try:
+        value = lookup(dpath=dpath, query=query, cols=cols, within=within)
+    except LookupError:
+        value = default
+    except WorkflowError:
+        value = default
+    except KeyError:
+        value = default
+    except AttributeError:
+        value = default
+
+    return value
 
 
-def get_sample_information(
-    wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame
-) -> dict[str, str | None]:
+def get_sjdb_overhang(
+    wildcards: snakemake.io.Wildcards,
+    samples: pandas.DataFrame = samples,
+) -> str:
     """
-    Return sample information for a given {sample} wildcards
-
-    Parameters:
-    wildcards (snakemake.io.Wildcards): Required for snakemake unpacking function
-    samples   (pandas.DataFrame)      : Describe samples and their input files
-
-    Return (dict[str, str | None]):
-    Sample information
+    Return readlen-1 if available in samples, else 100
     """
-    result: str | None = samples.loc[(samples["sample_id"] == str(wildcards.sample))]
-    if len(result) > 0:
-        return next(iter(result.to_dict(orient="index").values()))
-    return defaultdict(lambda: None)
-
-
-def get_star_align_input(
-    wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples
-) -> dict[str, str | list[str]]:
-    """
-    Return expected input files for STAR mapping, according to user-input,
-    and snakemake-wrapper requirements
-
-    Parameters:
-    wildcards (snakemake.io.Wildcards): Required for snakemake unpacking function
-    samples   (pandas.DataFrame)      : Describe sample names and related paths/genome
-
-    Return (dict[str, str | list[str]]):
-    Dictionnary of all input files as required by STAR's snakemake-wrapper
-    """
-    results: dict[str, str | list[str]] = {
-        "index": "reference/star_index/{species}.{build}.{release}.{datatype}",
-    }
-    sample_data: dict[str] | None = get_sample_information(wildcards, samples)
-    if sample_data.get("downstream_file"):
-        results["fq2"] = f"tmp/fastp/trimmed/{wildcards.sample}.2.fastq"
-        results["fq1"] = f"tmp/fastp/trimmed/{wildcards.sample}.1.fastq"
-    else:
-        results["fq1"] = f"tmp/fastp/trimmed/{wildcards.sample}.fastq"
-
-    return results
-
-
-def get_fair_star_mapping_multiqc_input(
-    wildcards: snakemake.io.Wildcards, samples: pandas.DataFrame = samples
-) -> dict[str, list[str]]:
-    """
-    Return expected input files for MultiQC report, according to user-input,
-    and snakemake-wrapper requirements
-
-    Parameters:
-    wildcards (snakemake.io.Wildcards): Required for snakemake unpacking function
-    samples   (pandas.DataFrame)      : Describe sample names and related paths/genome
-
-    Return (dict[str, list[str]]):
-    Dictionnary of all input files as required by MultiQC's snakemake-wrapper
-    """
-    results: dict[str, list[str]] = {
-        "picard_qc": [],
-        "fastp": [],
-        "fastqc": [],
-        "bowtie2": [],
-        "samtools": [],
-    }
-    datatype: str = "dna"
-    sample_iterator = zip(
-        samples.sample_id,
-        samples.species,
-        samples.build,
-        samples.release,
+    return getattr(
+        lookup(
+            query="species == '{species}' & build == '{build}' & release == '{release}'",
+            within=samples,
+        ),
+        "readlen",
+        "100",
     )
-    for sample, species, build, release in sample_iterator:
-        results["picard_qc"] += multiext(
-            f"tmp/picard/{species}.{build}.{release}.{datatype}/stats/{sample}",
-            ".alignment_summary_metrics",
-            ".insert_size_metrics",
-            ".insert_size_histogram.pdf",
-            ".base_distribution_by_cycle_metrics",
-            ".base_distribution_by_cycle.pdf",
-            ".gc_bias.detail_metrics",
-            ".gc_bias.summary_metrics",
-            ".gc_bias.pdf",
-        )
-        sample_data: dict[str, str | None] = get_sample_information(
-            snakemake.io.Wildcards(fromdict={"sample": sample}), samples
-        )
-        if sample_data.get("downstream_file"):
-            results["fastp"].append(f"tmp/fastp/report_pe/{sample}.fastp.json")
-            results["fastqc"].append(f"results/QC/report_pe/{sample}.1_fastqc.zip")
-            results["fastqc"].append(f"results/QC/report_pe/{sample}.2_fastqc.zip")
-        else:
-            results["fastp"].append(f"tmp/fastp/report_se/{sample}.fastp.json")
-            results["fastqc"].append(f"results/QC/report_pe/{sample}_fastqc.zip")
-
-        results["samtools"].append(
-            f"tmp/samtools/{species}.{build}.{release}.{datatype}/{sample}.txt"
-        )
-
-        # TODO: add star output
-
-    return results
 
 
 def get_fair_star_mapping_target(
@@ -226,8 +148,8 @@ def get_fair_star_mapping_target(
     """
     results: dict[str, list[str]] = {
         "multiqc": [
-            "results/QC/MultiQC.html",
-            "results/QC/MultiQC_data.zip",
+            "results/QC/MultiQC_FastQC.html",
+            "results/QC/MultiQC_FastQC_data.zip",
         ],
         "bams": [],
         "bais": [],
@@ -239,6 +161,9 @@ def get_fair_star_mapping_target(
         samples.release,
     )
     for sample, species, build, release in sample_iterator:
+        results["multiqc"].append(
+            f"results/{species}.{build}.{release}.dna/QC/MultiQC_Mapping.html"
+        )
         results["bams"].append(
             f"results/{species}.{build}.{release}.dna/Mapping/{sample}.bam"
         )
@@ -246,4 +171,5 @@ def get_fair_star_mapping_target(
             f"results/{species}.{build}.{release}.dna/Mapping/{sample}.bam.bai"
         )
 
+    results["multiqc"] = list(set(results["multiqc"]))
     return results

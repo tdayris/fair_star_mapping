@@ -1,4 +1,4 @@
-rule fair_bowtie2_mapping_picard_create_multiple_metrics:
+rule fair_star_mapping_picard_create_multiple_metrics:
     input:
         bam="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
         bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
@@ -13,7 +13,7 @@ rule fair_bowtie2_mapping_picard_create_multiple_metrics:
     output:
         temp(
             multiext(
-                "tmp/fair_bowtie2_mapping/picard_create_multiple_metrics/{species}.{build}.{release}.{datatype}/stats/{sample}",
+                "tmp/fair_star_mapping/picard_create_multiple_metrics/{species}.{build}.{release}.{datatype}/stats/{sample}",
                 ".alignment_summary_metrics",
                 ".insert_size_metrics",
                 ".insert_size_histogram.pdf",
@@ -30,10 +30,12 @@ rule fair_bowtie2_mapping_picard_create_multiple_metrics:
         runtime=lambda wildcards, attempt: int(60 * 0.6) * attempt,
         tmpdir="tmp",
     log:
-        "logs/fair_bowtie2_mapping/picard_create_multiple_metrics/{species}.{build}.{release}.{datatype}/{sample}.log",
+        "logs/fair_star_mapping/picard_create_multiple_metrics/{species}.{build}.{release}.{datatype}/{sample}.log",
     benchmark:
-        "benchmark/fair_bowtie2_mapping/picard_create_multiple_metrics/{species}.{build}.{release}.{datatype}/{sample}.tsv"
+        "benchmark/fair_star_mapping/picard_create_multiple_metrics/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
-        extra=lookup(dpath="params/picard/collectmultiplemetrics", within=config),
+        extra=dlookup(
+            dpath="params/picard/collectmultiplemetrics", within=config, default=""
+        ),
     wrapper:
-        "v3.5.0/bio/picard/collectmultiplemetrics"
+        f"{snakemake_wrappers_prefix}/bio/picard/collectmultiplemetrics"

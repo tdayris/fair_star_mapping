@@ -24,9 +24,7 @@ rule fair_star_mapping_fastp_trimming_pair_ended:
                 "library": "pair_ended",
             },
         ),
-        json=temp(
-            "tmp/fair_star_mapping/fastp_trimming_pair_ended/{sample}.fastp.json"
-        ),
+        json=temp("tmp/fair_star_mapping/fastp_trimming_pair_ended/{sample}.fastp.json"),
     threads: 20
     resources:
         mem_mb=lambda wildcards, attempt: (4 * 1024) * attempt,
@@ -37,10 +35,10 @@ rule fair_star_mapping_fastp_trimming_pair_ended:
     benchmark:
         "benchmark/fair_star_mapping/fastp_trimming_pair_ended/{sample}.tsv"
     params:
-        adapters=lookup(dpath="params/fastp/adapters", within=config),
-        extra=lookup(dpath="params/fastp/extra", within=config),
+        adapters=dlookup(dpath="params/fastp/adapters", within=config, default=""),
+        extra=dlookup(dpath="params/fastp/extra", within=config, default=""),
     wrapper:
-        "v3.5.0/bio/fastp"
+        f"{snakemake_wrappers_prefix}/bio/fastp"
 
 
 use rule fair_star_mapping_fastp_trimming_pair_ended as fair_star_mapping_fastp_trimming_single_ended with:
@@ -49,9 +47,7 @@ use rule fair_star_mapping_fastp_trimming_pair_ended as fair_star_mapping_fastp_
             "tmp/fair_fastqc_multiqc/link_or_concat_single_ended_input/{sample}.fastq.gz"
         ],
     output:
-        trimmed=temp(
-            "tmp/fair_star_mapping/fastp_trimming_single_ended/{sample}.fastq"
-        ),
+        trimmed=temp("tmp/fair_star_mapping/fastp_trimming_single_ended/{sample}.fastq"),
         html=report(
             "results/QC/report_se/{sample}.html",
             caption="../report/fastp.rst",
@@ -70,4 +66,3 @@ use rule fair_star_mapping_fastp_trimming_pair_ended as fair_star_mapping_fastp_
         "logs/fair_star_mapping/fastp_trimming_single_ended/{sample}.log",
     benchmark:
         "benchmark/fair_star_mapping/fastp_trimming_single_ended/{sample}.tsv"
-
