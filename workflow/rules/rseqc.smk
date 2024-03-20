@@ -1,3 +1,31 @@
+rule fair_star_mapping_rseqc_tin:
+    input:
+        aln="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
+        alnbai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
+        refgene="tmp/fair_star_mapping/ucsc_genepred_to_bed/{species}.{build}.{release}.bed",
+    output:
+        temp(
+            "tmp/fair_star_mapping/rseqc_tin/{species}.{build}.{release}.{datatype}/{sample}.summary.txt"
+        ),
+    threads: 1
+    resources:
+        mem_mb=lambda wildcards, attempt: attempt * 1024,
+        runtime=lambda wildcards, attempt: attempt * 10,
+        tmpdir=tmp,
+    log:
+        "logs/fair_star_mapping/rseqc_tin/{species}.{build}.{release}.{datatype}/{sample}.log",
+    benchmark:
+        "benchmark/fair_star_mapping/rseqc_tin/{species}.{build}.{release}.{datatype}/{sample}.tsv"
+    params:
+        extra=dlookup(
+            dpath="params/fair_star_mapping/rseqc/tin", within=config, default=""
+        ),
+    conda:
+        "../envs/rseqc.yaml"
+    script:
+        "../scripts/rseqc_tin.py"
+
+
 rule fair_star_mapping_rseqc_infer_experiment:
     input:
         aln="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
@@ -17,11 +45,14 @@ rule fair_star_mapping_rseqc_infer_experiment:
     benchmark:
         "benchmark/fair_star_mapping/rseqc_infer_experiment/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
-        extra=lookup(
-            dpath="params/fair_star_mapping/rseqc/infer_experiment", within=config
+        extra=dlookup(
+            dpath="params/fair_star_mapping/rseqc/infer_experiment",
+            within=config,
+            default="",
         ),
     wrapper:
-        "v3.5.0/bio/rseqc/infer_experiment"
+        f"{snakemake_wrappers_prefix}/bio/rseqc/infer_experiment"
+
 
 rule fair_star_mapping_rseqc_bamstat:
     input:
@@ -41,7 +72,9 @@ rule fair_star_mapping_rseqc_bamstat:
     benchmark:
         "benchmark/fair_star_mapping/rseqc_bamstat/{species}.{build}.{release}/{sample}.{datatype}.tsv"
     params:
-        extra=lookup(dpath="params/fair_star_mapping/rseqc/bamstat", within=config),
+        extra=dlookup(
+            dpath="params/fair_star_mapping/rseqc/bamstat", within=config, default=""
+        ),
     conda:
         "../envs/rseqc.yaml"
     script:
@@ -70,9 +103,11 @@ rule fair_star_mapping_rseqc_read_gc:
     benchmark:
         "benchmark/fair_star_mapping/rseqc_bamstat/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
-        extra=lookup(dpath="params/fair_star_mapping/rseqc/read_gc", within=config),
+        extra=dlookup(
+            dpath="params/fair_star_mapping/rseqc/read_gc", within=config, default=""
+        ),
     wrapper:
-        "v3.5.0/bio/rseqc/read_gc"
+        f"{snakemake_wrappers_prefix}/bio/rseqc/read_gc"
 
 
 rule fair_star_mapping_rseqc_read_distribution:
@@ -94,11 +129,13 @@ rule fair_star_mapping_rseqc_read_distribution:
     benchmark:
         "benchmark/fair_star_mapping/rseqc_read_distribution/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
-        extra=lookup(
-            dpath="params/fair_star_mapping/rseqc/read_distribution", within=config
+        extra=dlookup(
+            dpath="params/fair_star_mapping/rseqc/read_distribution",
+            within=config,
+            default="",
         ),
     wrapper:
-        "v3.5.0/bio/rseqc/read_distribution"
+        f"{snakemake_wrappers_prefix}/bio/rseqc/read_distribution"
 
 
 rule fair_star_mapping_rseqc_inner_distance:
@@ -126,38 +163,12 @@ rule fair_star_mapping_rseqc_inner_distance:
     benchmark:
         "benchmark/fair_star_mapping/rseqc_inner_distance/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
-        extra=lookup(
-            dpath="params/fair_star_mapping/rseqc/inner_distance", within=config
+        extra=dlookup(
+            dpath="params/fair_star_mapping/rseqc/inner_distance",
+            within=config,
+            default="",
         ),
     conda:
         "../envs/rseqc.yaml"
     script:
         "../scripts/rseqc_inner_distance.py"
-
-rule fair_star_mapping_rseqc_tin:
-    input:
-        aln="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
-        alnbai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
-        refgene="tmp/fair_star_mapping/ucsc_genepred_to_bed/{species}.{build}.{release}.bed",
-    output:
-        temp("tmp/fair_star_mapping/rseqc_tin/{species}.{build}.{release}.{datatype}/{sample}.summary.txt"),
-    threads: 1
-    resources:
-        mem_mb=lambda wildcards, attempt: attempt * 1024,
-        runtime=lambda wildcards, attempt: attempt * 10,
-        tmpdir=tmp,
-    log:
-        "logs/fair_star_mapping/rseqc_tin/{species}.{build}.{release}.{datatype}/{sample}.log",
-    benchmark:
-        "benchmark/fair_star_mapping/rseqc_tin/{species}.{build}.{release}.{datatype}/{sample}.tsv"
-    params:
-        extra=lookup(
-            dpath="params/fair_star_mapping/rseqc/tin", within=config
-        ),
-    conda:
-        "../envs/rseqc.yaml"
-    script:
-        "../scripts/rseqc_tin.py"
-
-    
-        
