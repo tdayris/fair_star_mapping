@@ -26,8 +26,11 @@ snakefiles := \
 	"../workflow/Snakefile"
 
 pythonfiles := \
+	"../workflow/scripts/fair_star_mapping_multiqc.py" \
+	"../workflow/scripts/goleft_indexcov.py" \
+	"../workflow/scripts/ngsderive.py" \
 	"../workflow/scripts/rseqc_tin.py" \
-	"../workflow/scripts/rnaseqc.py"
+	"../workflow/scripts/rnaseqc.py" \
 
 .PHONY: all
 all: report.txt
