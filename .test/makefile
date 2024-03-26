@@ -9,7 +9,6 @@ MAKEFLAGS += --no-builtin-rules
 # List of snakefiles to lint
 snakefiles := \
 	"../workflow/rules/common.smk" \
-	"../workflow/rules/fair_bowtie2_mapping.smk" \
 	"../workflow/rules/fair_fastqc_multiqc.smk" \
 	"../workflow/rules/fair_genome_indexer.smk" \
 	"../workflow/rules/fastp.smk" \
@@ -26,7 +25,7 @@ snakefiles := \
 	"../workflow/Snakefile"
 
 pythonfiles := \
-	"../workflow/scripts/fair_star_mapping_multiqc.py" \
+	"../workflow/scripts/fair_star_mapping_multiqc_config.py" \
 	"../workflow/scripts/goleft_indexcov.py" \
 	"../workflow/scripts/ngsderive.py" \
 	"../workflow/scripts/rseqc_tin.py" \
@@ -88,4 +87,5 @@ clean:
 		   black.txt \
 		   .java \
 		   .wget-hsts \
-		   .conda
+		   .conda \
+		   .snakemake

@@ -1,5 +1,10 @@
 samples: config/samples.csv
 
+params:
+  fair_star_mapping:
+    star:
+      align: "--outSAMtype BAM Unsorted"
+
 # Optional path to a `genome.csv` file
 genomes: config/genomes.csv
 
