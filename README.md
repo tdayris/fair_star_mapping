@@ -73,6 +73,12 @@ See  [`fair_fastqc_multiqc`](https://github.com/tdayris/fair_fastqc_multiqc/) do
 └──────────────┬───────────┘        
                │                    
                │                    
+┌──────────────▼───────────┐        
+│Add read groups (picard)  │        
+└──────────────┬───────────┘        
+               │                    
+               │                    
+               │                    
 ┌──────────────▼───────────────────┐
 │Index aligned sequences (sambamba)│
 └──────────────────────────────────┘
