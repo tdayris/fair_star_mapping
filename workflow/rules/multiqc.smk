@@ -73,7 +73,7 @@ rule fair_star_mapping_multiqc_config:
                 "rseqc",
                 "ngsderive",
                 "goleft_indexcov",
-                "rnaseqc",
+                "rna_seqc",
             ],
             "report_section_order": {
                 "fastq_screen": {"order": 1000},
@@ -85,7 +85,7 @@ rule fair_star_mapping_multiqc_config:
                 "samtools": {"order": 860},
                 "rseqc": {"order": 850},
                 "goleft_indexcov": {"order": 840},
-                "rnaseqc": {"order": 830},
+                "rna_seqc": {"order": 830},
                 "software_versions": {"order": -1000},
             },
         },
@@ -231,7 +231,7 @@ rule fair_star_mapping_multiqc_report:
             ext=["ped", "roc"],
         ),
         ngsderive_encoding=collect(
-            "tmp/fair_star_mapping/ngsderive/{subcommand}/{sample.species}.{sample.build}/{sample.release}.dna/{sample.sample_id}.{subcommand}.tsv",
+            "tmp/fair_star_mapping/ngsderive/{subcommand}/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.{subcommand}.tsv",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}'",
                 within=samples,

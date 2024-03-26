@@ -22,13 +22,13 @@ rule fair_star_mapping_rnaseqc:
         metrics=temp(
             "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.metrics.tsv"
         ),
-        exon_reads=temp(
+        exon_read=temp(
             "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.exon_reads.gct"
         ),
-        gene_reads=temp(
+        gene_read=temp(
             "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.gene_reads.gct"
         ),
-        gene_tmp=temp(
+        gene_tpm=temp(
             "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.gene_tpm.gct"
         ),
         coverage=temp(
@@ -49,6 +49,7 @@ rule fair_star_mapping_rnaseqc:
             within=config,
             default="",
         ),
+        out_prefix="{sample}"
     conda:
         "../envs/rnaseqc.yaml"
     script:

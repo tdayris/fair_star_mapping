@@ -59,7 +59,7 @@ rule fair_star_mapping_sambamba_markdup:
     input:
         "tmp/fair_star_mapping/sambamba_view/{species}.{build}.{release}.{datatype}/{sample}.bam",
     output:
-        protected("results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam"),
+        temp("tmp/fair_star_mapping/sambamba/dedup/{species}.{build}.{release}.{datatype}/{sample}.bam"),
     threads: 1
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 1024 * 6,
@@ -95,5 +95,7 @@ rule fair_star_mapping_sambamba_index:
         "logs/fair_star_mapping/sambamba_index/{species}.{build}.{release}.{datatype}/{sample}.log",
     benchmark:
         "benchmark/fair_star_mapping/sambamba_index/{species}.{build}.{release}.{datatype}/{sample}.tsv"
+    params:
+        extra=dlookup(dpath="params/fair_star_mapping/sambamba/index", within=config, default=""),
     wrapper:
         f"{snakemake_wrappers_prefix}/bio/sambamba/index"

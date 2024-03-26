@@ -154,6 +154,7 @@ def get_fair_star_mapping_target(
         "bams": [],
         "bais": [],
     }
+    datatype: str = "dna"
     sample_iterator = zip(
         samples.sample_id,
         samples.species,
@@ -162,13 +163,13 @@ def get_fair_star_mapping_target(
     )
     for sample, species, build, release in sample_iterator:
         results["multiqc"].append(
-            f"results/{species}.{build}.{release}.dna/QC/MultiQC_Mapping.html"
+            f"results/{species}.{build}.{release}.{datatype}/QC/MultiQC_Mapping.html",
         )
         results["bams"].append(
-            f"results/{species}.{build}.{release}.dna/Mapping/{sample}.bam"
+            f"results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam"
         )
         results["bais"].append(
-            f"results/{species}.{build}.{release}.dna/Mapping/{sample}.bam.bai"
+            f"results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai"
         )
 
     results["multiqc"] = list(set(results["multiqc"]))

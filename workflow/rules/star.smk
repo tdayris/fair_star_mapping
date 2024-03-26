@@ -72,7 +72,7 @@ rule fair_star_mapping_star_align_pair_ended:
         extra=dlookup(
             dpath="params/fair_star_mapping/star/align",
             within=config,
-            default="--outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --twopassMode Basic",
+            default="--outSAMtype BAM Unsorted --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --twopassMode Basic",
         ),
     wrapper:
         f"{snakemake_wrappers_prefix}/bio/star/align"
@@ -80,7 +80,8 @@ rule fair_star_mapping_star_align_pair_ended:
 
 use rule fair_star_mapping_star_align_pair_ended as fair_star_mapping_star_align_single_ended with:
     input:
-        fq1="tmp/fair_star_mapping/fastp_trimming_pair_ended/{sample}.fastq",
+        fq1="tmp/fair_star_mapping/fastp_trimming_single_ended/{sample}.fastq",
+        idx="reference/star_index/{species}.{build}.{release}.{datatype}",
     output:
         aln=temp(
             "tmp/fair_star_mapping/star_single/{species}.{build}.{release}.{datatype}/{sample}/{sample}.bam"

@@ -14,7 +14,7 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
 shell(
     "tin.py {extra} "
-    "--input {snakemake.input.bam} "
+    "--input {snakemake.input.aln} "
     "--refgene {snakemake.input.refgene} "
     "> {snakemake.output} {log}"
 )

@@ -92,7 +92,7 @@ rule fair_star_mapping_rseqc_read_gc:
         plot_r=temp(
             "tmp/fair_star_mapping/rseqc_read_gc/{species}.{build}.{release}.{datatype}/{sample}.GC_plot.r"
         ),
-        plot_pdf="results/{species}.{build}.{release}.{datatype}/RSeQC/{sample}.GC_plot.pdf",
+        pdf="results/{species}.{build}.{release}.{datatype}/RSeQC/{sample}.GC_plot.pdf",
     threads: 1
     resources:
         mem_mb=lambda wildcards, attempt: attempt * 1024,

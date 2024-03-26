@@ -3,7 +3,7 @@ rule fair_star_mapping_ngsderive_endedness:
         ngs="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
         ngs_bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
     output:
-        temp(
+        tsv=temp(
             "tmp/fair_star_mapping/ngsderive/endedness/{species}.{build}.{release}.{datatype}/{sample}.endedness.tsv"
         ),
     threads: 1
@@ -33,8 +33,8 @@ rule fair_star_mapping_ngsderive_strandedness:
         ngs="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
         ngs_bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
     output:
-        temp(
-            "tmp/fair_star_mapping/ngsderive/strandedness/{species}.{build}/{release}.{datatype}/{sample}.strandedness.tsv"
+        tsv=temp(
+            "tmp/fair_star_mapping/ngsderive/strandedness/{species}.{build}.{release}.{datatype}/{sample}.strandedness.tsv"
         ),
     threads: 1
     resources:
@@ -63,8 +63,8 @@ rule fair_star_mapping_ngsderive_encoding:
         ngs="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
         ngs_bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
     output:
-        temp(
-            "tmp/fair_star_mapping/ngsderive/encoding/{species}.{build}/{release}.{datatype}/{sample}.encoding.tsv"
+        tsv=temp(
+            "tmp/fair_star_mapping/ngsderive/encoding/{species}.{build}.{release}.{datatype}/{sample}.encoding.tsv"
         ),
     threads: 1
     resources:
@@ -93,8 +93,8 @@ rule fair_star_mapping_ngsderive_instrument:
         ngs="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
         ngs_bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
     output:
-        temp(
-            "tmp/fair_star_mapping/ngsderive/instrument/{species}.{build}/{release}.{datatype}/{sample}.instrument.tsv"
+        tsv=temp(
+            "tmp/fair_star_mapping/ngsderive/instrument/{species}.{build}.{release}.{datatype}/{sample}.instrument.tsv"
         ),
     threads: 1
     resources:
@@ -123,8 +123,8 @@ rule fair_star_mapping_ngsderive_readlen:
         ngs="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
         ngs_bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
     output:
-        temp(
-            "tmp/fair_star_mapping/ngsderive/readlen/{species}.{build}/{release}.{datatype}/{sample}.readlen.tsv"
+        tsv=temp(
+            "tmp/fair_star_mapping/ngsderive/readlen/{species}.{build}.{release}.{datatype}/{sample}.readlen.tsv"
         ),
     threads: 1
     resources:
