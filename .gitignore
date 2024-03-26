@@ -1,3 +1,15 @@
+.test/.cache/
+.test/.condarc
+.test/multiqc_data/
+.test/multiqc_data_1/
+.test/multiqc_data_2/
+.test/multiqc_report.html
+.test/multiqc_report_1.html
+.test/multiqc_report_2.html
+.test/sac_a.summary.txt
+.test/sac_a.tin.xls
+.test/sac_b.summary.txt
+.test/sac_b.tin.xls
 .test/linter.txt
 .test/format.txt
 .test/pipeline.txt
