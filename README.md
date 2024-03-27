@@ -51,11 +51,12 @@ See  [`fair_fastqc_multiqc`](https://github.com/tdayris/fair_fastqc_multiqc/) do
 
 ### Filtering
 
-| Step             | Wrapper                                                                                                |
-| ---------------- | ------------------------------------------------------------------------------------------------------ |
-| Sambamba-view    | [sambamba-view](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/sambamba/view.html)       |
-| Sambamba-markdup | [sambamba-markdup](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/sambamba/markdup.html) |
-| Sambamba-index   | [sambamba-index](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/sambamba/index.html)     |
+| Step             | Wrapper                                                                                                                      |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Sambamba-view    | [sambamba-view](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/sambamba/view.html)                             |
+| Sambamba-markdup | [sambamba-markdup](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/sambamba/markdup.html)                       |
+| Picard           | [picard-addorreplacegroups](https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/picard/addorreplacereadgroups.html) |
+| Sambamba-index   | [sambamba-index](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/sambamba/index.html)                           |
 
 ```
 ┌──────────────────────────┐        
