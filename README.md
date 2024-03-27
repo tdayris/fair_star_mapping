@@ -90,6 +90,10 @@ See  [`fair_fastqc_multiqc`](https://github.com/tdayris/fair_fastqc_multiqc/) do
 | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | Picard   | [picard-collectmultiplemetrics](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/picard/collectmultiplemetrics.html) |
 | Samtools | [samtools-stats](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/samtools/stats.html)                               |
+| RSeQC    | [official documentation](https://rseqc.sourceforge.net/)                                                                         |
+| RNASeQC  | [official documentation](https://github.com/getzlab/rnaseqc)                                                                     |
+| NGSderive| [official documentation](https://stjudecloud.github.io/ngsderive/)                                                               |
+| Goleft   | [official documentation](https://github.com/brentp/goleft)                                                                       |
 | MultiQC  | [multiqc-wrapper](https://snakemake-wrappers.readthedocs.io/en/v3.4.1/wrappers/multiqc.html)                                     |
 
 ```
