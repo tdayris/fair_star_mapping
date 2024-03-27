@@ -49,7 +49,7 @@ rule fair_star_mapping_rnaseqc:
             within=config,
             default="",
         ),
-        prefix="{sample}"
+        prefix="{sample}",
     conda:
         "../envs/rnaseqc.yaml"
     script:
