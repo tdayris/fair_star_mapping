@@ -11,3 +11,7 @@ your favorite web-browser.
 .. _Picard: https://snakemake-wrappers.readthedocs.io/en/v3.5.2/wrappers/picard/collectmultiplemetrics.html
 .. _Samtools: https://snakemake-wrappers.readthedocs.io/en/v3.5.2/wrappers/samtools/stats.html
 .. _RSNASeQC: https://github.com/getzlab/rnaseqc
+.. _goleft: https://github.com/brentp/goleft/tree/master/indexcov
+.. _ngsderive: https://stjudecloud.github.io/ngsderive/
+.. _RSeQC: https://rseqc.sourceforge.net/
+.. _RNASeQC: https://github.com/getzlab/rnaseqc

@@ -15,7 +15,7 @@ snakefiles := \
 	"../workflow/rules/goleft.smk" \
 	"../workflow/rules/multiqc.smk" \
 	"../workflow/rules/ngsderive.smk" \
-	"../workflow/rules/picard_metrics.smk" \
+	"../workflow/rules/picard.smk" \
 	"../workflow/rules/rnaseqc.smk" \
 	"../workflow/rules/rseqc.smk" \
 	"../workflow/rules/sambamba.smk" \
