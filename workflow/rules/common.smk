@@ -70,7 +70,7 @@ release_list: list[str] = list(set(genomes.release.tolist()))
 build_list: list[str] = list(set(genomes.build.tolist()))
 species_list: list[str] = list(set(genomes.species.tolist()))
 stream_list: list[str] = ["1", "2"]
-snakemake_wrappers_prefix: str = "v3.5.2"
+snakemake_wrappers_prefix: str = "v3.7.0"
 tmp: str = f"{os.getcwd()}/tmp"
 
 
