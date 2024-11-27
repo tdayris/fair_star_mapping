@@ -1,3 +1,13 @@
+# 1.1.0
+
+## Features:
+
+* snakemake wrappers up to 4.6.0
+* fair_fastqc_multiqc up to 2.4.0
+* fair_genome_indexer up to 3.9.2
+* fair_bowtie2_mapping up to 4.3.1
+* New QC added alongside with cDNA/transcriptome oriented mapping
+
 # 1.0.1
 
 ## Features:

@@ -1,56 +1,41 @@
 rule fair_star_mapping_rnaseqc:
     input:
-        gtf=getattr(
-            lookup(
-                query="species == '{species}' & build == '{build}' & release == '{release}'",
-                within=genomes,
-            ),
-            "gtf",
-            "reference/annotation/{species}.{build}.{release}.gtf",
-        ),
-        fasta=getattr(
-            lookup(
-                query="species == '{species}' & build == '{build}' & release == '{release}'",
-                within=genomes,
-            ),
-            "dna_fasta",
-            "reference/sequences/{species}.{build}.{release}.dna.fasta",
-        ),
-        bam="results/{species}.{build}.{release}.dna/Mapping/{sample}.bam",
-        bam_bai="results/{species}.{build}.{release}.dna/Mapping/{sample}.bam.bai",
+        gtf=lambda wildcards: get_gtf(wildcards),
+        fasta=lambda wildcards: select_fasta(wildcards),
+        bam="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam",
+        bam_bai="results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai",
     output:
         metrics=temp(
-            "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.metrics.tsv"
+            "tmp/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.metrics.tsv"
         ),
         exon_read=temp(
-            "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.exon_reads.gct"
+            "tmp/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.exon_reads.gct"
         ),
         gene_read=temp(
-            "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.gene_reads.gct"
+            "tmp/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.gene_reads.gct"
         ),
         gene_tpm=temp(
-            "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.gene_tpm.gct"
+            "tmp/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.gene_tpm.gct"
         ),
         coverage=temp(
-            "tmp/fair_star_mapping/rnaseqc/{species}.{build}.{release}.dna/{sample}.coverage.tsv"
+            "tmp/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.coverage.tsv"
         ),
     threads: 1
     resources:
-        mem_mb=lambda wildcards, attempt: attempt * 1024,
+        mem_mb=lambda wildcards, attempt: attempt * 1_000,
         runtime=lambda wildcards, attempt: attempt * 45,
         tmpdir=tmp,
     log:
-        "logs/fair_star_mapping/rnaseqc/{species}.{build}.{release}/{sample}.log",
+        "logs/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.log",
     benchmark:
-        "benchmark/fair_star_mapping/rnaseqc/{species}.{build}.{release}/{sample}.tsv"
+        "benchmark/fair_star_mapping_rnaseqc/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
-        extra=dlookup(
-            dpath="params/fair_star_mapping/rnaseqc",
-            within=config,
+        extra=lookup_config(
+            dpath="params/fair_star_mapping_rnaseqc",
             default="",
         ),
         prefix="{sample}",
     conda:
         "../envs/rnaseqc.yaml"
     script:
-        "../scripts/rnaseqc.py"
+        "../scripts/fair_star_mapping_rnaseqc.py"

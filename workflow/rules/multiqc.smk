@@ -1,111 +1,60 @@
+"""
+## Memory
+Requires a job with at most 255.86  Mb,
+ on average 219.45 ± 96.33 Mb, 
+on Gustave Roussy's HPC Flamingo, on a 1.0  Mb dataset.
+## Time
+A job took 0:00:05 to proceed,
+on average 0:00:05 ± 0:00:01
+"""
+
+
 rule fair_star_mapping_multiqc_config:
     input:
-        "tmp/fair_fastqc_multiqc/bigr_logo.png",
+        "tmp/fair_fastqc_multiqc_bigr_logo.png",
     output:
-        temp("tmp/fair_star_mapping/multiqc_config.yaml"),
+        temp("tmp/fair_star_mapping_multiqc_config.yaml"),
     threads: 1
     resources:
-        mem_mb=lambda wildcards, attempt: attempt * 512,
+        mem_mb=lambda wildcards, attempt: 300 + attempt * 100,
         runtime=lambda wildcards, attempt: attempt * 5,
         tmpdir=tmp,
     localrule: True
     log:
-        "logs/fair_star_mapping/multiqc_config.log",
+        "logs/fair_star_mapping_multiqc_config.log",
     benchmark:
-        "benchmark/fair_star_mapping/multiqc_config.tsv"
+        "benchmark/fair_star_mapping_multiqc_config.tsv"
     params:
-        extra=lambda wildcards, input: {
-            "title": "Mapping quality control report",
-            "subtitle": "Produced on raw fastq recieved from sequencer",
-            "intro_text": (
-                "This pipeline building this report has "
-                "no information about sequencing protocol, "
-                "or wet-lab experimental design."
-            ),
-            "report_comment": (
-                "This report was generated using: "
-                "https://github.com/tdayris/fair_star_mapping"
-            ),
-            "show_analysis_paths": False,
-            "show_analysis_time": False,
-            "custom_logo": input[0],
-            "custom_logo_url": "https://bioinfo_gustaveroussy.gitlab.io/bigr/webpage/",
-            "custom_logo_title": "Bioinformatics Platform @ Gustave Roussy",
-            "report_header_info": [
-                {"Contact E-mail": "bigr@gustaveroussy.fr"},
-                {"Application type": "Spliced reads"},
-                {"Project Type": "Mapping"},
-            ],
-            "software_versions": {
-                "Quality controls": {
-                    "fastqc": "1.12.1",
-                    "fastq_screen": "0.15.3",
-                    "bowtie2": "1.3.1",
-                    "multiqc": "1.20.0",
-                },
-                "Mapping": {
-                    "star": "2.7.11b",
-                    "sambamba": "1.0",
-                    "samtools": "1.19.2",
-                    "picard": "3.1.1",
-                    "rseqc": "5.0.3",
-                    "fastp": "0.23.4",
-                    "ngsderive": "3.3.2",
-                    "goleft": "0.2.4",
-                    "rnaseqc": "2.4.2",
-                },
-                "Pipeline": {
-                    "snakemake": "8.5.3",
-                    "fair_bowtie2_mapping": "3.2.0",
-                    "fair_star_mapping": "1.0.0",
-                    "fair_fastqc_multiqc": "2.1.2",
-                    "fair_genome_indexer": "3.2.2",
-                },
-            },
-            "disable_version_detection": True,
-            "run_modules": [
-                "fastqc",
-                "fastq_screen",
-                "fastp",
-                "star",
-                "samtools",
-                "picard",
-                "rseqc",
-                "ngsderive",
-                "goleft_indexcov",
-                "rna_seqc",
-            ],
-            "report_section_order": {
-                "fastq_screen": {"order": 1000},
-                "ngsderive": {"order": 950},
-                "fastqc": {"order": 900},
-                "fastp": {"order": 890},
-                "star": {"order": 880},
-                "picard": {"order": 870},
-                "samtools": {"order": 860},
-                "rseqc": {"order": 850},
-                "goleft_indexcov": {"order": 840},
-                "rna_seqc": {"order": 830},
-                "software_versions": {"order": -1000},
-            },
-        },
+        extra=lookup_config(dpath="params/fair_star_mapping_multiqc_config", default=None),
     conda:
         "../envs/python.yaml"
     script:
         "../scripts/fair_star_mapping_multiqc_config.py"
 
 
+
+"""
+## Memory
+Requires a job with at most 6812.27  Mb,
+ on average 5839.23 ± 2574.42 Mb, 
+on Gustave Roussy's HPC Flamingo, on a 1.0  Mb dataset.
+## Time
+A job took 0:01:54 to proceed,
+on average 0:01:38 ± 0:00:42
+"""
+
+
 rule fair_star_mapping_multiqc_report:
     input:
-        config="tmp/fair_star_mapping/multiqc_config.yaml",
-        logo="tmp/fair_fastqc_multiqc/bigr_logo.png",
+        config="tmp/fair_star_mapping_multiqc_config.yaml",
+        logo="tmp/fair_fastqc_multiqc_bigr_logo.png",
         fastqc_pair_ended=collect(
             "results/QC/report_pe/{sample.sample_id}.{stream}_fastqc.zip",
             sample=lookup(
                 query="downstream_file == downstream_file & species == '{species}' & build == '{build}' & release == '{release}'",
                 within=samples,
             ),
-            stream=stream_list,
+            stream=stream_tuple,
         ),
         fastqc_single_ended=collect(
             "results/QC/report_pe/{sample.sample_id}_fastqc.zip",
@@ -115,98 +64,57 @@ rule fair_star_mapping_multiqc_report:
             ),
         ),
         fastp_pair_ended=collect(
-            "tmp/fair_star_mapping/fastp_trimming_pair_ended/{sample.sample_id}.fastp.json",
+            "tmp/fair_star_mapping_fastp_trimming_pair_ended/{sample.sample_id}.fastp.json",
             sample=lookup(
                 query="downstream_file == downstream_file & species == '{species}' & build == '{build}' & release == '{release}'",
                 within=samples,
             ),
         ),
         fastp_single_ended=collect(
-            "tmp/fair_star_mapping/fastp_trimming_single_ended/{sample.sample_id}.fastp.json",
+            "tmp/fair_star_mapping_fastp_trimming_single_ended/{sample.sample_id}.fastp.json",
             sample=lookup(
                 query="downstream_file != downstream_file & species == '{species}' & build == '{build}' & release == '{release}'",
                 within=samples,
             ),
         ),
-        rseqc_infer_experiment=collect(
-            "tmp/fair_star_mapping/rseqc_infer_experiment/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.infer_experiment.txt",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
-        ),
-        rseqc_bamstat=collect(
-            "tmp/fair_star_mapping/rseqc_bamstat/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.bamstat.txt",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
-        ),
-        rseqc_read_gc=collect(
-            "tmp/fair_star_mapping/rseqc_read_gc/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.GC.xls",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
-        ),
-        rseqc_read_distribution=collect(
-            "tmp/fair_star_mapping/rseqc_read_distribution/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.txt",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
-        ),
-        rseqc_inner_distance=collect(
-            "tmp/fair_star_mapping/rseqc_inner_distance/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.inner_distance_freq.txt",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
-        ),
-        rseqc_tin=collect(
-            "tmp/fair_star_mapping/rseqc_tin/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.summary.txt",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
-        ),
         rnaseqc_metrics=collect(
-            "tmp/fair_star_mapping/rnaseqc/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.metrics.tsv",
+            "tmp/fair_star_mapping_rnaseqc/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.metrics.tsv",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}'",
                 within=samples,
             ),
+            allow_missing=True,
         ),
         rnaseqc_coverage=collect(
-            "tmp/fair_star_mapping/rnaseqc/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.coverage.tsv",
+            "tmp/fair_star_mapping_rnaseqc/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.coverage.tsv",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}'",
                 within=samples,
             ),
-        ),
-        samtools_stat=collect(
-            "tmp/fair_star_mapping/samtools_stats/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.txt",
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
+            allow_missing=True,
         ),
         star_pair_ended=collect(
-            "tmp/fair_star_mapping/star_paired/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}/Log.out",
+            "tmp/fair_star_mapping_star_align_pair_ended/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}/Log.out",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}' & downstream_file == downstream_file",
                 within=samples,
             ),
+            allow_missing=True,
         ),
         star_single_ended=collect(
-            "tmp/fair_star_mapping/star_single/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}/Log.out",
+            "tmp/fair_star_mapping_star_align_single_ended/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}/Log.out",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}' & downstream_file != downstream_file",
                 within=samples,
             ),
+            allow_missing=True,
         ),
-        picard_collect_multiple_metrics=collect(
-            "tmp/fair_star_mapping/picard_create_multiple_metrics/{sample.species}.{sample.build}.{sample.release}.dna/stats/{sample.sample_id}{ext}",
+        picard_qc=collect(
+            "tmp/fair_bowtie2_mapping_picard_create_multiple_metrics/{sample.species}.{sample.build}.{sample.release}.{datatype}/stats/{sample.sample_id}{ext}",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
             ext=[
                 ".alignment_summary_metrics",
                 ".insert_size_metrics",
@@ -217,51 +125,144 @@ rule fair_star_mapping_multiqc_report:
                 ".gc_bias.summary_metrics",
                 ".gc_bias.pdf",
             ],
-            sample=lookup(
-                query="species == '{species}' & release == '{release}' & build == '{build}'",
-                within=samples,
-            ),
+            allow_missing=True,
         ),
-        goleft_indexcov=collect(
-            "tmp/fair_star_mapping/goleft/indexcov/{sample.species}.{sample.release}.{sample.build}/{sample.sample_id}-indexcov.{ext}",
+        idxstats=collect(
+            "tmp/fair_bowtie2_mapping_samtools_idxstats/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.idxstats",
+            sample=lookup(
+                query="species == '{species}' & build == '{build}' & release == '{release}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        rseqc_infer_experiment=collect(
+            "tmp/fair_bowtie2_mapping_rseqc_infer_experiment/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.infer_experiment.txt",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}'",
                 within=samples,
             ),
-            ext=["ped", "roc"],
+            allow_missing=True,
+        ),
+        rseqc_bamstat=collect(
+            "tmp/fair_bowtie2_mapping_rseqc_bamstat/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.bamstat.txt",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        rseqc_read_gc=collect(
+            "tmp/fair_bowtie2_mapping_rseqc_read_gc/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.GC.xls",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        rseqc_read_distribution=collect(
+            "tmp/fair_bowtie2_mapping_rseqc_read_distribution/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.txt",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        rseqc_inner_distance=collect(
+            "tmp/fair_bowtie2_mapping_rseqc_inner_distance/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.inner_distance_freq.txt",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        goleft_indexcov_ped=collect(
+            "tmp/fair_bowtie2_mapping_goleft_indexcov/{sample.species}.{sample.release}.{sample.build}.{datatype}/{sample.sample_id}-indexcov.ped",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        goleft_indexcov_roc=collect(
+            "tmp/fair_bowtie2_mapping_goleft_indexcov/{sample.species}.{sample.release}.{sample.build}.{datatype}/{sample.sample_id}-indexcov.roc",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        ngsderive_readlen=collect(
+            "tmp/fair_bowtie2_mapping_ngsderive_readlen/{sample.species}.{sample.build}/{sample.release}.{datatype}/{sample.sample_id}.readlen.tsv",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        ngsderive_instrument=collect(
+            "tmp/fair_bowtie2_mapping_ngsderive_instrument/{sample.species}.{sample.build}/{sample.release}.{datatype}/{sample.sample_id}.instrument.tsv",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
         ),
         ngsderive_encoding=collect(
-            "tmp/fair_star_mapping/ngsderive/{subcommand}/{sample.species}.{sample.build}.{sample.release}.dna/{sample.sample_id}.{subcommand}.tsv",
+            "tmp/fair_bowtie2_mapping_ngsderive_encoding/{sample.species}.{sample.build}/{sample.release}.{datatype}/{sample.sample_id}.encoding.tsv",
             sample=lookup(
                 query="species == '{species}' & release == '{release}' & build == '{build}'",
                 within=samples,
             ),
-            subcommand=["encoding", "instrument", "readlen"],
+            allow_missing=True,
+        ),
+        mosdepth_global=collect(
+            "tmp/fair_bowtie2_mapping_mosdepth/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.mosdepth.global.dist.txt",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        mosdepth_region=collect(
+            "tmp/fair_bowtie2_mapping_mosdepth/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.mosdepth.region.dist.txt",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        mosdepth_summary=collect(
+            "tmp/fair_bowtie2_mapping_mosdepth/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.mosdepth.summary.txt",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
         ),
     output:
         report(
-            "results/{species}.{build}.{release}.dna/QC/MultiQC_Mapping.html",
+            "results/{species}.{build}.{release}.{datatype}/QC/MultiQC_Mapping.html",
             caption="../report/multiqc.rst",
             category="Quality Controls",
             subcategory="General",
             labels={
                 "report": "html",
                 "step": "Mapping",
-                "organism": "{species}.{build}.{release}.dna",
+                "organism": "{species}.{build}.{release}.{datatype}",
             },
         ),
-        "results/{species}.{build}.{release}.dna/QC/MultiQC_Mapping_data.zip",
+        "results/{species}.{build}.{release}.{datatype}/QC/MultiQC_Mapping_data.zip",
     threads: 1
     resources:
-        mem_mb=lambda wildcards, attempt: (2 * 1024) * attempt,
-        runtime=lambda wildcards, attempt: int(60 * 0.5) * attempt,
+        mem_mb=lambda wildcards, attempt: 7_000 + (1_000 * attempt),
+        runtime=lambda wildcards, attempt: 30 * attempt,
         tmpdir=tmp,
     params:
-        extra=dlookup(dpath="params/multiqc", within=config, default="--verbose"),
+        extra=lookup_config(dpath="params/multiqc", default="--verbose --no-megaqc-upload --no-ansi --force",),
         use_input_files_only=True,
     log:
-        "logs/fair_star_mapping/multiqc_report/{species}.{build}.{release}.dna.log",
+        "logs/fair_star_mapping_multiqc_report/{species}.{build}.{release}.{datatype}.log",
     benchmark:
-        "benchmark/fair_star_mapping/multiqc_report/{species}.{build}.{release}.dna.tsv"
+        "benchmark/fair_star_mapping_multiqc_report/{species}.{build}.{release}.{datatype}.tsv"
     wrapper:
         f"{snakemake_wrappers_prefix}/bio/multiqc"

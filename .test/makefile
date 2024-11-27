@@ -9,25 +9,19 @@ MAKEFLAGS += --no-builtin-rules
 # List of snakefiles to lint
 snakefiles := \
 	"../workflow/rules/common.smk" \
+	"../workflow/rules/fair_bowtie2_mapping.smk" \
 	"../workflow/rules/fair_fastqc_multiqc.smk" \
 	"../workflow/rules/fair_genome_indexer.smk" \
 	"../workflow/rules/fastp.smk" \
-	"../workflow/rules/goleft.smk" \
 	"../workflow/rules/multiqc.smk" \
-	"../workflow/rules/ngsderive.smk" \
 	"../workflow/rules/picard.smk" \
 	"../workflow/rules/rnaseqc.smk" \
-	"../workflow/rules/rseqc.smk" \
 	"../workflow/rules/sambamba.smk" \
-	"../workflow/rules/samtools_stats.smk" \
 	"../workflow/rules/star.smk" \
-	"../workflow/rules/ucsc.smk" \
 	"../workflow/Snakefile"
 
 pythonfiles := \
 	"../workflow/scripts/fair_star_mapping_multiqc_config.py" \
-	"../workflow/scripts/goleft_indexcov.py" \
-	"../workflow/scripts/ngsderive.py" \
 	"../workflow/scripts/rseqc_tin.py" \
 	"../workflow/scripts/rnaseqc.py" \
 
@@ -36,20 +30,17 @@ all: report.txt
 
 
 dag.png:
-	mamba activate test-snakemake-wrappers && \
 	snakemake -s ../workflow/Snakefile \
 		--rulegraph --forceall | dot -Tpng > dag.png && \
 	cp --verbose dag.png ../dag.png
 
 
 report.txt: pipeline.txt
-	mamba activate test-snakemake-wrappers && \
 	snakemake -s ../workflow/Snakefile --profile local \
 		--report report.html 2>&1 | tee report.txt
 
 
 pipeline.txt: linter.txt
-	mamba activate test-snakemake-wrappers && \
 	snakemake -s ../workflow/Snakefile --profile local  \
 		--cores 2 \
 		--software-deployment-method apptainer conda \
@@ -57,18 +48,15 @@ pipeline.txt: linter.txt
 
 
 format.txt:
-	mamba activate test-snakemake-wrappers && \
 	snakefmt $(snakefiles) 2>&1 | tee format.txt
 
 
 linter.txt: format.txt black.txt
-	mamba activate test-snakemake-wrappers && \
 	snakemake -s ../workflow/Snakefile  --profile local \
 		--lint 2>&1 | tee linter.txt
 
 
 black.txt:
-	mamba activate test-snakemake-wrappers && \
 	black $(pythonfiles) 2>&1 | tee black.txt
 
 .PHONY: clean

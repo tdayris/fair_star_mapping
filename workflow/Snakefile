@@ -11,17 +11,17 @@ if config.get("load_fair_fastqc_multiqc", True):
     include: "rules/fair_fastqc_multiqc.smk"
 
 
+if config.get("load_fair_bowtie2_mapping", True):
+
+    include: "rules/fair_bowtie2_mapping.smk"
+
+
 include: "rules/fastp.smk"
-include: "rules/goleft.smk"
 include: "rules/multiqc.smk"
-include: "rules/ngsderive.smk"
 include: "rules/picard.smk"
 include: "rules/rnaseqc.smk"
-include: "rules/rseqc.smk"
 include: "rules/sambamba.smk"
-include: "rules/samtools_stats.smk"
 include: "rules/star.smk"
-include: "rules/ucsc.smk"
 
 
 rule fair_star_mapping_target:
