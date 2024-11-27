@@ -1,19 +1,19 @@
 [![Snakemake](https://img.shields.io/badge/snakemake-≥7.29.0-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/tdayris/fair_genome_indexer/workflows/Tests/badge.svg?branch=main)](https://github.com/tdayris/fair_genome_indexer/actions?query=branch%3Amain+workflow%3ATests)
+[![GitHub actions status](https://github.com/tdayris/fair_star_mapping/workflows/Tests/badge.svg?branch=main)](https://github.com/tdayris/fair_star_mapping/actions?query=branch%3Amain+workflow%3ATests)
 
 Snakemake workflow used to align ungapped reads to the genome with STAR.
 
 ## Usage
 
-The usage of this workflow is described in the [Snakemake workflow catalog](https://snakemake.github.io/snakemake-workflow-catalog?usage=tdayris/fair_bowtie2_mapping) it is also available [locally](https://github.com/tdayris/fair_bowtie2_mapping/blob/main/workflow/report/usage.rst) on a single page.
+The usage of this workflow is described in the [Snakemake workflow catalog](https://snakemake.github.io/snakemake-workflow-catalog?usage=tdayris/fair_star_mapping) it is also available [locally](https://github.com/tdayris/fair_star_mapping/blob/main/workflow/report/usage.rst) on a single page.
  
 ## Results
 
-A complete description of the results can be found here in [workflow reports](https://github.com/tdayris/fair_bowtie2_mapping/blob/main/workflow/report/results.rst).
+A complete description of the results can be found here in [workflow reports](https://github.com/tdayris/fair_star_mapping/blob/main/workflow/report/results.rst).
 
 ## Material and Methods
 
-The tools used in this pipeline are described [here](https://github.com/tdayris/fair_bowtie2_mapping/blob/main/workflow/report/material_methods.rst) textually. Web-links are available below:
+The tools used in this pipeline are described [here](https://github.com/tdayris/fair_star_mapping/blob/main/workflow/report/material_methods.rst) textually. Web-links are available below:
 
 
 ### Index and genome sequences with [`fair_genome_indexer`](https://github.com/tdayris/fair_genome_indexer/)
