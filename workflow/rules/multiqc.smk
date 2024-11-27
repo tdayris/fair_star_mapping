@@ -25,12 +25,13 @@ rule fair_star_mapping_multiqc_config:
     benchmark:
         "benchmark/fair_star_mapping_multiqc_config.tsv"
     params:
-        extra=lookup_config(dpath="params/fair_star_mapping_multiqc_config", default=None),
+        extra=lookup_config(
+            dpath="params/fair_star_mapping_multiqc_config", default=None
+        ),
     conda:
         "../envs/python.yaml"
     script:
         "../scripts/fair_star_mapping_multiqc_config.py"
-
 
 
 """
@@ -258,7 +259,10 @@ rule fair_star_mapping_multiqc_report:
         runtime=lambda wildcards, attempt: 30 * attempt,
         tmpdir=tmp,
     params:
-        extra=lookup_config(dpath="params/multiqc", default="--verbose --no-megaqc-upload --no-ansi --force",),
+        extra=lookup_config(
+            dpath="params/multiqc",
+            default="--verbose --no-megaqc-upload --no-ansi --force",
+        ),
         use_input_files_only=True,
     log:
         "logs/fair_star_mapping_multiqc_report/{species}.{build}.{release}.{datatype}.log",

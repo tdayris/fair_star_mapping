@@ -23,7 +23,8 @@ rule fair_star_mapping_sambamba_sort:
         "benchmark/fair_star_mapping_sambamba_sort/{species}.{build}.{release}.{datatype}/{sample}.tsv"
     params:
         extra=lookup_config(
-            dpath="params/fair_star_mapping_sambamba_sort", default="",
+            dpath="params/fair_star_mapping_sambamba_sort",
+            default="",
         ),
     wrapper:
         f"{snakemake_wrappers_prefix}/bio/sambamba/sort"
@@ -77,5 +78,3 @@ rule fair_star_mapping_sambamba_markdup:
         ),
     wrapper:
         f"{snakemake_wrappers_prefix}/bio/sambamba/markdup"
-
-

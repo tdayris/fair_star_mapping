@@ -13,10 +13,11 @@ rule fair_star_mapping_gatk_split_n_cigar_reads:
     log:
         "logs/fair_star_mapping_gatk_split_n_cigar_reads/{sample}.log",
     benchmark:
-        "benchmark/fair_star_mapping_gatk_split_n_cigar_reads/{sample}.tsv",
+        "benchmark/fair_star_mapping_gatk_split_n_cigar_reads/{sample}.tsv"
     params:
-        extra=lookup_config(dpath="params/fair_star_mapping_gatk_split_n_cigar_reads", default="",),
+        extra=lookup_config(
+            dpath="params/fair_star_mapping_gatk_split_n_cigar_reads",
+            default="",
+        ),
     wrapper:
         f"{snakemake_wrappers_prefix}/bio/gatk/splitncigarreads"
-    
-    
