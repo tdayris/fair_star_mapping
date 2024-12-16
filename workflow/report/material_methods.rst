@@ -16,7 +16,8 @@ Additonal quality assessments are done with RSeQC_ [#rseqcpaper]_,
 NGSderive_ [#ngsderivepaper]_, GOleft_ [#goleftpaper]_, RNASeqQC_ [#rnaseqcpaper]_
 and Mosdepth_ [#mosdepthpaper]_. Additionalsample quality checks were done with
 MTNucRatioCalculator_ [#mtnucratiocalculator]_, and SexDetERRmine_ [#sexdeterrmine]_ 
-to verify library and sample expectations.
+to verify library and sample expectations. Library complexity is assessed with
+Mosdepth_ [#mosdepthpaper]_ and Preseq_ [#preseqpaper]_.
 
 Quality repord produced during both trimming and mapping steps have been 
 aggregated with MultiQC_ [#multiqcpaper]_.
@@ -41,16 +42,17 @@ pipelines.
 .. [#ngsderivepaper] McLeod, Clay, et al. "St. Jude Cloud: a pediatric cancer genomic data-sharing ecosystem." Cancer discovery 11.5 (2021): 1082-1099.
 .. [#goleftpaper] Pedersen, Brent S., et al. "Indexcov: fast coverage quality control for whole-genome sequencing." Gigascience 6.11 (2017): gix090.
 .. [#rnaseqcpaper] Graubert, Aaron, et al. "RNA-SeQC 2: efficient RNA-seq quality control and quantification for large cohorts." Bioinformatics 37.18 (2021): 3048-3050.
-.. [#mosdepthpaper] Pedersen, Brent S., and Aaron R. Quinlan. "Mosdepth: quick coverage calculation for genomes and exomes." Bioinformatics 34.5 (2018): 867-868.
 .. [#mtnucratiocalculator] Alexander Peltzerand Alexander Regueiro. Apeltzer/mtnucratiocalculator: 0.7.1. 0.7.1, Zenodo, 10 Sept. 2024, doi:10.5281/zenodo.13739840.
 .. [#sexdeterrmine] Lamnidis, T.C. et al., 2018. Ancient Fennoscandian genomes reveal origin and spread of Siberian ancestry in Europe. Nature communications, 9(1), p.5018. Available at: http://dx.doi.org/10.1038/s41467-018-07483-5.
+.. [#mosdepthpaper] Pedersen, Brent S., and Aaron R. Quinlan. "Mosdepth: quick coverage calculation for genomes and exomes." Bioinformatics 34.5 (2018): 867-868.
+.. [#preseqpaper] Daley, Timothy, et al. "The preseq Manual." The Smith Lab: Los Angeles, CA, USA (2014).
 .. [#multiqcpaper] Ewels, Philip, et al. "MultiQC: summarize analysis results for multiple tools and samples in a single report." Bioinformatics 32.19 (2016): 3047-3048.
 .. [#gatkpaper] Van der Auwera, Geraldine A., and Brian D. O'Connor. Genomics in the cloud: using Docker, GATK, and WDL in Terra. O'Reilly Media, 2020.
-.. [#pipeline] Dayris, T. (2024). fair-star-mapping (Version 1.2.0) [Computer software]. https://github.com/tdayris/fair_star_mapping
+.. [#pipeline] Dayris, T. (2024). fair-star-mapping (Version 1.3.0) [Computer software]. https://github.com/tdayris/fair_star_mapping
 .. [#snakemakepaper] Köster, Johannes, and Sven Rahmann. "Snakemake—a scalable bioinformatics workflow engine." Bioinformatics 28.19 (2012): 2520-2522.
-.. [#fairgenomeindexer] Dayris, T. (2024). fair-genome-indexer (Version 3.9.3) [Computer software]. https://github.com/tdayris/fair_genome_indexer
-.. [#fairfastqcmultiqc] Dayris, T. (2024). fair-fastqc-multiqc (Version 2.4.2) [Computer software]. https://github.com/tdayris/fair_fastqc_multiqc
-.. [#fairbowtiemapping] Dayris, T. (2024). fair-bowtie2-mapping (Version 4.4.0) [Computer software]. https://github.com/tdayris/fair_bowtie2_mapping
+.. [#fairgenomeindexer] Dayris, T. (2024). fair-genome-indexer (Version 3.9.4) [Computer software]. https://github.com/tdayris/fair_genome_indexer
+.. [#fairfastqcmultiqc] Dayris, T. (2024). fair-fastqc-multiqc (Version 2.5.1) [Computer software]. https://github.com/tdayris/fair_fastqc_multiqc
+.. [#fairbowtiemapping] Dayris, T. (2024). fair-bowtie2-mapping (Version 4.4.1) [Computer software]. https://github.com/tdayris/fair_bowtie2_mapping
 
 .. _Sambamba: https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/sambamba.html
 .. _STAR: https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/star.html
@@ -68,6 +70,7 @@ pipelines.
 .. _RSeQC: https://rseqc.sourceforge.net/
 .. _RNASeqQC: https://github.com/getzlab/rnaseqc
 .. _Mosdepth: https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/mosdepth.html
+.. _Presseq: https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/preseq/lc_extrap.html
 .. _SexDetERRmine: ???
 .. _MTNucRatioCalculator: ???
 .. _`fair-star-mapping`: https://github.com/tdayris/fair_star_mapping

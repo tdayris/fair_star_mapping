@@ -1,3 +1,14 @@
+# 1.3.0
+
+## Features:
+
+* Snakemake-wrappers update to 5.5.0
+* fair_genome_indexer update to 3.9.4
+* fair_fastqc_multiqc update to 2.5.1
+* fair_bowtie2_mapping update to 4.4.1
+* Preseq added to the list of QC
+* RegTools added to annotate splicing sites
+
 # 1.2.0
 
 ## Features:
