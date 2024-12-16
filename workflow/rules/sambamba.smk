@@ -27,7 +27,7 @@ rule fair_star_mapping_sambamba_sort:
             default="",
         ),
     wrapper:
-        f"{snakemake_wrappers_prefix}/bio/sambamba/sort"
+        "v5.5.0/bio/sambamba/sort"
 
 
 rule fair_star_mapping_sambamba_view:
@@ -52,7 +52,7 @@ rule fair_star_mapping_sambamba_view:
             default="--format 'bam' --filter 'mapping_quality >= 30 and not (unmapped or mate_is_unmapped)' ",
         ),
     wrapper:
-        f"{snakemake_wrappers_prefix}/bio/sambamba/view"
+        "v5.5.0/bio/sambamba/view"
 
 
 rule fair_star_mapping_sambamba_markdup:
@@ -77,4 +77,4 @@ rule fair_star_mapping_sambamba_markdup:
             default="--overflow-list-size=500000",
         ),
     wrapper:
-        f"{snakemake_wrappers_prefix}/bio/sambamba/markdup"
+        "v5.5.0/bio/sambamba/markdup"

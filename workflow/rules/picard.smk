@@ -18,4 +18,4 @@ rule fair_star_mapping_picard_add_or_replace_groups:
             default=f"--RGLB '{w.species}.{w.build}.{w.release}.{w.sample}' --RGPL ILLUMINA --RGPU '{w.species}.{w.build}.{w.release}.{w.datatype}' --RGSM '{w.sample}' --RGCN 'GustaveRoussy' --RGDS 'Organism_{w.species}.{w.build}.{w.release}.{w.datatype}_Sample_{w.sample}'",
         ),
     wrapper:
-        f"{snakemake_wrappers_prefix}/bio/picard/addorreplacereadgroups"
+        "v5.5.0/bio/picard/addorreplacereadgroups"

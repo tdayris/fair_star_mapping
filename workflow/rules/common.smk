@@ -125,7 +125,6 @@ snakemake.utils.validate(genomes, "../schemas/genomes.schema.yaml")
 report: "../report/workflows.rst"
 
 
-snakemake_wrappers_prefix: str = "v4.6.0"
 release_tuple: tuple[str] = tuple(set(genomes.release.tolist()))
 build_tuple: tuple[str] = tuple(set(genomes.build.tolist()))
 species_tuple: tuple[str] = tuple(set(genomes.species.tolist()))
@@ -471,6 +470,7 @@ def get_fair_star_mapping_target(
         ],
         "bams": [],
         "bais": [],
+        "regtools": [],
     }
     datatype: str = "dna"
     sample_iterator = zip(
@@ -488,6 +488,9 @@ def get_fair_star_mapping_target(
         )
         results["bais"].append(
             f"results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.bam.bai"
+        )
+        results["regtools"].append(
+            f"results/{species}.{build}.{release}.{datatype}/Mapping/{sample}.regtools_junctions_annotated.bed"
         )
 
     results["multiqc"] = list(set(results["multiqc"]))

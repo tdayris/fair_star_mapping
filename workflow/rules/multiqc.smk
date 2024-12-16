@@ -240,6 +240,26 @@ rule fair_star_mapping_multiqc_report:
             ),
             allow_missing=True,
         ),
+        mtnucratiocalculator=collect(
+            "tmp/fair_bowtie2_mapping_mtnucratiocalculator/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.mtnuc.json",
+            sample=lookup(
+                query="species == '{species}' & release == '{release}' & build == '{build}'",
+                within=samples,
+            ),
+            allow_missing=True,
+        ),
+        preseq=branch(
+            config.get("opions", {}).get("run_preseq", False),
+            then=expand(
+                "tmp/fair_star_mapping_preseq_lc_extrap_bam/{sample.species}.{sample.build}.{sample.release}.{datatype}/{sample.sample_id}.lc_extrap",
+                sample=lookup(
+                    query="species == '{species}' & release == '{release}' & build == '{build}'",
+                    within=samples,
+                ),
+                allow_missing=True,
+            ),
+            otherwise=[],
+        ),
     output:
         report(
             "results/{species}.{build}.{release}.{datatype}/QC/MultiQC_Mapping.html",
@@ -269,4 +289,4 @@ rule fair_star_mapping_multiqc_report:
     benchmark:
         "benchmark/fair_star_mapping_multiqc_report/{species}.{build}.{release}.{datatype}.tsv"
     wrapper:
-        f"{snakemake_wrappers_prefix}/bio/multiqc"
+        "v5.5.0/bio/multiqc"

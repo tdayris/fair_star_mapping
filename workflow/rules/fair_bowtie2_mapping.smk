@@ -3,7 +3,9 @@ module fair_bowtie2_mapping:
         config.get(
             "fair_bowtie2_mapping",
             github(
-                "tdayris/fair_bowtie2_mapping", path="workflow/Snakefile", tag="4.3.1"
+                "tdayris/fair_bowtie2_mapping",
+                path="workflow/Snakefile",
+                tag="4.4.1",
             ),
         )
     config:
@@ -47,3 +49,6 @@ use rule fair_bowtie2_mapping_samtools_stats from fair_bowtie2_mapping
 
 
 use rule fair_bowtie2_mapping_samtools_idxstats from fair_bowtie2_mapping
+
+
+use rule fair_bowtie2_mapping_mtnucratiocalculator from fair_bowtie2_mapping

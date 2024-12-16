@@ -19,6 +19,8 @@ if config.get("load_fair_bowtie2_mapping", True):
 include: "rules/fastp.smk"
 include: "rules/multiqc.smk"
 include: "rules/picard.smk"
+include: "rules/preseq.smk"
+include: "rules/regtools.smk"
 include: "rules/rnaseqc.smk"
 include: "rules/sambamba.smk"
 include: "rules/star.smk"

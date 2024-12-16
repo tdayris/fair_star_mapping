@@ -1,3 +1,19 @@
+# 1.2.0
+
+## Features:
+
+* Snakemake-wrappers update to 5.3.0
+* fair-genome-indexer update 3.9.3
+* fair-fastqc-multiqc update 2.4.2
+* fair-bowtie2-mapping update 4.4.0
+* Easy snakemake-wrappers update
+* Easy conda envs update
+* New testing pipeline with additional format checks
+
+## Doc:
+
+* Citation cff file added
+
 # 1.1.0
 
 ## Features:

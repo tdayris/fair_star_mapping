@@ -20,4 +20,4 @@ rule fair_star_mapping_gatk_split_n_cigar_reads:
             default="",
         ),
     wrapper:
-        f"{snakemake_wrappers_prefix}/bio/gatk/splitncigarreads"
+        "v5.5.0/bio/gatk/splitncigarreads"
