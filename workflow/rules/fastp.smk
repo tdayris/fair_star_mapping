@@ -55,7 +55,7 @@ rule fair_star_mapping_fastp_trimming_pair_ended:
             default="--cut_front --cut_tail --cut_window_size 6 --cut_mean_quality 10 --unqualified_percent_limit 50 --n_base_limit 7 --average_qual 0 --length_required 15 --overrepresentation_analysis",
         ),
     wrapper:
-        "v5.5.0/bio/fastp"
+        "v5.6.0/bio/fastp"
 
 
 use rule fair_star_mapping_fastp_trimming_pair_ended as fair_star_mapping_fastp_trimming_single_ended with:

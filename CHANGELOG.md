@@ -1,3 +1,13 @@
+# 1.3.1
+
+## Features
+
+* Snakemake-wrappers update to 5.6.0
+* fair_genome_indexer update to 3.9.5
+* fair_fastqc_multiqc update to 2.5.2
+* fair_bowtie2_mapping update to 4.4.2
+* Reservation updates
+
 # 1.3.0
 
 ## Features:

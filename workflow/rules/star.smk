@@ -28,7 +28,7 @@ rule fair_star_mapping_star_align_pair_ended:
             default="--outSAMtype BAM Unsorted --outFilterType BySJout --outFilterMultimapNmax 20 --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --twopassMode Basic",
         ),
     wrapper:
-        "v5.5.0/bio/star/align"
+        "v5.6.0/bio/star/align"
 
 
 use rule fair_star_mapping_star_align_pair_ended as fair_star_mapping_star_align_single_ended with:

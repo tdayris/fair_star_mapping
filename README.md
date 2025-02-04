@@ -28,9 +28,9 @@ See  [`fair_fastqc_multiqc`](https://github.com/tdayris/fair_fastqc_multiqc/) do
 
 | Step          | Wrapper                                                                                                  |
 | ------------- | -------------------------------------------------------------------------------------------------------- |
-| STAR-index    | [star-index-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/star/index.html)       |
-| STAR-align    | [star-align-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/star/align.html)       |
-| Sambamba-sort | [sambamba-sort-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/sambamba/sort.html) |
+| STAR-index    | [star-index-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/star/index.html)       |
+| STAR-align    | [star-align-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/star/align.html)       |
+| Sambamba-sort | [sambamba-sort-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/sambamba/sort.html) |
 
 ```
 ┌───────────────────────────┐   ┌─────────────────────────┐
@@ -53,10 +53,10 @@ See  [`fair_fastqc_multiqc`](https://github.com/tdayris/fair_fastqc_multiqc/) do
 
 | Step             | Wrapper                                                                                                                      |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Sambamba-view    | [sambamba-view](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/sambamba/view.html)                             |
-| Sambamba-markdup | [sambamba-markdup](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/sambamba/markdup.html)                       |
-| Picard           | [picard-addorreplacegroups](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/picard/addorreplacereadgroups.html) |
-| Sambamba-index   | [sambamba-index](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/sambamba/index.html)                           |
+| Sambamba-view    | [sambamba-view](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/sambamba/view.html)                             |
+| Sambamba-markdup | [sambamba-markdup](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/sambamba/markdup.html)                       |
+| Picard           | [picard-addorreplacegroups](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/picard/addorreplacereadgroups.html) |
+| Sambamba-index   | [sambamba-index](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/sambamba/index.html)                           |
 
 ```
 ┌──────────────────────────┐        
@@ -89,13 +89,13 @@ See  [`fair_fastqc_multiqc`](https://github.com/tdayris/fair_fastqc_multiqc/) do
 
 | Step     | Wrapper                                                                                                                          |
 | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Picard   | [picard-collectmultiplemetrics](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/picard/collectmultiplemetrics.html) |
-| Samtools | [samtools-stats](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/samtools/stats.html)                               |
-| RSeQC    | multiple [rseqc-wrappers](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/rseqc.html)                               |
+| Picard   | [picard-collectmultiplemetrics](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/picard/collectmultiplemetrics.html) |
+| Samtools | [samtools-stats](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/samtools/stats.html)                               |
+| RSeQC    | multiple [rseqc-wrappers](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/rseqc.html)                               |
 | RNASeQC  | [official documentation](https://github.com/getzlab/rnaseqc)                                                                     |
-| NGSderive| [ngsderive-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/ngsderive.html)                                 |
-| Goleft   | [goleft-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/goleft/indexcov.html)                              |
-| MultiQC  | [multiqc-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.5.0/wrappers/multiqc.html)                                     |
+| NGSderive| [ngsderive-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/ngsderive.html)                                 |
+| Goleft   | [goleft-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/goleft/indexcov.html)                              |
+| MultiQC  | [multiqc-wrapper](https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/multiqc.html)                                     |
 
 ```
 ┌──────────────────────┐        ┌─────────────────────┐                ┌─────────────────────────┐
