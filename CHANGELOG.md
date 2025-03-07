@@ -1,6 +1,16 @@
+# 1.3.2
+
+## Features:
+
+* Snakemake-wrppers update to 5.8.3
+* fair_genome_indexer update to 3.9.7
+* fair_fastqc_multiqc update to 2.5.5
+* fair_bowtie2_mapping update to 4.4.6
+* Remove default fastq_screen file
+
 # 1.3.1
 
-## Features
+## Features:
 
 * Snakemake-wrappers update to 5.6.0
 * fair_genome_indexer update to 3.9.5

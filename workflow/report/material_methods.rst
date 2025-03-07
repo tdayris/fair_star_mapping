@@ -48,29 +48,29 @@ pipelines.
 .. [#preseqpaper] Daley, Timothy, et al. "The preseq Manual." The Smith Lab: Los Angeles, CA, USA (2014).
 .. [#multiqcpaper] Ewels, Philip, et al. "MultiQC: summarize analysis results for multiple tools and samples in a single report." Bioinformatics 32.19 (2016): 3047-3048.
 .. [#gatkpaper] Van der Auwera, Geraldine A., and Brian D. O'Connor. Genomics in the cloud: using Docker, GATK, and WDL in Terra. O'Reilly Media, 2020.
-.. [#pipeline] Dayris, T. (2024). fair-star-mapping (Version 1.3.1) [Computer software]. https://github.com/tdayris/fair_star_mapping
+.. [#pipeline] Dayris, T. (2024). fair-star-mapping (Version 1.3.2) [Computer software]. https://github.com/tdayris/fair_star_mapping
 .. [#snakemakepaper] Köster, Johannes, and Sven Rahmann. "Snakemake—a scalable bioinformatics workflow engine." Bioinformatics 28.19 (2012): 2520-2522.
-.. [#fairgenomeindexer] Dayris, T. (2024). fair-genome-indexer (Version 3.9.5) [Computer software]. https://github.com/tdayris/fair_genome_indexer
-.. [#fairfastqcmultiqc] Dayris, T. (2024). fair-fastqc-multiqc (Version 2.5.2) [Computer software]. https://github.com/tdayris/fair_fastqc_multiqc
-.. [#fairbowtiemapping] Dayris, T. (2024). fair-bowtie2-mapping (Version 4.4.1) [Computer software]. https://github.com/tdayris/fair_bowtie2_mapping
+.. [#fairgenomeindexer] Dayris, T. (2024). fair-genome-indexer (Version 3.9.7) [Computer software]. https://github.com/tdayris/fair_genome_indexer
+.. [#fairfastqcmultiqc] Dayris, T. (2024). fair-fastqc-multiqc (Version 2.5.5) [Computer software]. https://github.com/tdayris/fair_fastqc_multiqc
+.. [#fairbowtiemapping] Dayris, T. (2024). fair-bowtie2-mapping (Version 4.4.6) [Computer software]. https://github.com/tdayris/fair_bowtie2_mapping
 
-.. _Sambamba: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/sambamba.html
-.. _STAR: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/star.html
-.. _Fastp: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/fastp.html
-.. _Picard: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/picard/collectmultiplemetrics.html
-.. _MultiQC: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/multiqc.html
+.. _Sambamba: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/sambamba.html
+.. _STAR: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/star.html
+.. _Fastp: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/fastp.html
+.. _Picard: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/picard/collectmultiplemetrics.html
+.. _MultiQC: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/multiqc.html
 .. _Snakemake: https://snakemake.readthedocs.io
 .. _Github: https://github.com/tdayris/fair_star_mapping
 .. _`Snakemake workflow`: https://snakemake.github.io/snakemake-workflow-catalog?usage=tdayris/fair_star_mapping
 .. _Agat: https://agat.readthedocs.io/en/latest/index.html
-.. _Samtools: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/samtools/faidx.html
-.. _FastQC: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/fastqc.html
+.. _Samtools: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/samtools/faidx.html
+.. _FastQC: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/fastqc.html
 .. _GOleft: https://github.com/brentp/goleft
 .. _NGSderive: "https://stjudecloud.github.io/ngsderive/"
 .. _RSeQC: https://rseqc.sourceforge.net/
 .. _RNASeqQC: https://github.com/getzlab/rnaseqc
-.. _Mosdepth: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/mosdepth.html
-.. _Presseq: https://snakemake-wrappers.readthedocs.io/en/v5.6.0/wrappers/preseq/lc_extrap.html
+.. _Mosdepth: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/mosdepth.html
+.. _Presseq: https://snakemake-wrappers.readthedocs.io/en/v5.8.3/wrappers/preseq/lc_extrap.html
 .. _SexDetERRmine: ???
 .. _MTNucRatioCalculator: ???
 .. _`fair-star-mapping`: https://github.com/tdayris/fair_star_mapping

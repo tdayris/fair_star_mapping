@@ -20,4 +20,4 @@ rule fair_star_mapping_gatk_split_n_cigar_reads:
             default="",
         ),
     wrapper:
-        "v5.6.0/bio/gatk/splitncigarreads"
+        "v5.8.3/bio/gatk/splitncigarreads"

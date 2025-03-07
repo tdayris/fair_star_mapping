@@ -21,4 +21,4 @@ rule fair_star_mapping_preseq_lc_extrap_bam:
             default="",
         ),
     wrapper:
-        "v5.6.0/bio/preseq/lc_extrap"
+        "v5.8.3/bio/preseq/lc_extrap"
