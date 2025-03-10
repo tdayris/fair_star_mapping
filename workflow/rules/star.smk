@@ -1,7 +1,7 @@
 rule fair_star_mapping_star_align_pair_ended:
     input:
-        fq1="tmp/fair_star_mapping_fastp_trimming_pair_ended/{sample}.1.fastq",
-        fq2="tmp/fair_star_mapping_fastp_trimming_pair_ended/{sample}.2.fastq",
+        fq1="tmp/fair_bowtie2_mapping_fastp_trimming_pair_ended/{sample}.1.fastq.gz",
+        fq2="tmp/fair_bowtie2_mapping_fastp_trimming_pair_ended/{sample}.2.fastq.gz",
         idx=lambda wildcards: select_star_index(wildcards),
     output:
         aln=temp(
@@ -33,7 +33,7 @@ rule fair_star_mapping_star_align_pair_ended:
 
 use rule fair_star_mapping_star_align_pair_ended as fair_star_mapping_star_align_single_ended with:
     input:
-        fq1="tmp/fair_star_mapping_fastp_trimming_single_ended/{sample}.fastq",
+        fq1="tmp/fair_bowtie2_mapping_fastp_trimming_single_ended/{sample}.fastq.gz",
         idx=lambda wildcards: select_star_index(wildcards),
     output:
         aln=temp(

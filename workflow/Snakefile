@@ -16,7 +16,6 @@ if config.get("load_fair_bowtie2_mapping", True):
     include: "rules/fair_bowtie2_mapping.smk"
 
 
-include: "rules/fastp.smk"
 include: "rules/multiqc.smk"
 include: "rules/picard.smk"
 include: "rules/preseq.smk"
@@ -24,6 +23,8 @@ include: "rules/regtools.smk"
 include: "rules/rnaseqc.smk"
 include: "rules/sambamba.smk"
 include: "rules/star.smk"
+
+ruleorder: fair_star_mapping_picard_add_or_replace_groups > fair_bowtie2_mapping_sambamba_markdup
 
 
 rule fair_star_mapping_target:

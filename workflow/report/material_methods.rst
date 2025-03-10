@@ -48,7 +48,7 @@ pipelines.
 .. [#preseqpaper] Daley, Timothy, et al. "The preseq Manual." The Smith Lab: Los Angeles, CA, USA (2014).
 .. [#multiqcpaper] Ewels, Philip, et al. "MultiQC: summarize analysis results for multiple tools and samples in a single report." Bioinformatics 32.19 (2016): 3047-3048.
 .. [#gatkpaper] Van der Auwera, Geraldine A., and Brian D. O'Connor. Genomics in the cloud: using Docker, GATK, and WDL in Terra. O'Reilly Media, 2020.
-.. [#pipeline] Dayris, T. (2024). fair-star-mapping (Version 1.3.2) [Computer software]. https://github.com/tdayris/fair_star_mapping
+.. [#pipeline] Dayris, T. (2024). fair-star-mapping (Version 1.3.3) [Computer software]. https://github.com/tdayris/fair_star_mapping
 .. [#snakemakepaper] Köster, Johannes, and Sven Rahmann. "Snakemake—a scalable bioinformatics workflow engine." Bioinformatics 28.19 (2012): 2520-2522.
 .. [#fairgenomeindexer] Dayris, T. (2024). fair-genome-indexer (Version 3.9.7) [Computer software]. https://github.com/tdayris/fair_genome_indexer
 .. [#fairfastqcmultiqc] Dayris, T. (2024). fair-fastqc-multiqc (Version 2.5.5) [Computer software]. https://github.com/tdayris/fair_fastqc_multiqc

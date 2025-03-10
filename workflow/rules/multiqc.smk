@@ -65,14 +65,14 @@ rule fair_star_mapping_multiqc_report:
             ),
         ),
         fastp_pair_ended=collect(
-            "tmp/fair_star_mapping_fastp_trimming_pair_ended/{sample.sample_id}.fastp.json",
+            "tmp/fair_bowtie2_mapping_fastp_trimming_pair_ended/{sample.sample_id}.fastp.json",
             sample=lookup(
                 query="downstream_file == downstream_file & species == '{species}' & build == '{build}' & release == '{release}'",
                 within=samples,
             ),
         ),
         fastp_single_ended=collect(
-            "tmp/fair_star_mapping_fastp_trimming_single_ended/{sample.sample_id}.fastp.json",
+            "tmp/fair_bowtie2_mapping_fastp_trimming_single_ended/{sample.sample_id}.fastp.json",
             sample=lookup(
                 query="downstream_file != downstream_file & species == '{species}' & build == '{build}' & release == '{release}'",
                 within=samples,

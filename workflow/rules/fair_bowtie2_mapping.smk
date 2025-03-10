@@ -52,3 +52,9 @@ use rule fair_bowtie2_mapping_samtools_idxstats from fair_bowtie2_mapping
 
 
 use rule fair_bowtie2_mapping_mtnucratiocalculator from fair_bowtie2_mapping
+
+
+use rule fair_bowtie2_mapping_fastp_trimming_pair_ended from fair_bowtie2_mapping
+
+
+use rule fair_bowtie2_mapping_fastp_trimming_single_ended from fair_bowtie2_mapping

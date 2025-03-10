@@ -1,3 +1,9 @@
+# 1.3.3
+
+## Features:
+
+* Use fastp rule from fair_bowtie2_mapping pipeline
+
 # 1.3.2
 
 ## Features:
