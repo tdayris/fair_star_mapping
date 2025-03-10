@@ -24,6 +24,7 @@ include: "rules/rnaseqc.smk"
 include: "rules/sambamba.smk"
 include: "rules/star.smk"
 
+
 ruleorder: fair_star_mapping_picard_add_or_replace_groups > fair_bowtie2_mapping_sambamba_markdup
 
 
